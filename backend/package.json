@@ -1,0 +1,30 @@
+{
+  "name": "first-project-node-with-ts",
+  "packageManager": "yarn@3.1.1",
+  "dependencies": {
+    "express": "^4.17.3",
+    "pg": "^8.7.3",
+    "typeorm": "^0.3.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev:server": "ts-node-dev src/server.ts"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.3"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/CleberSalustiano/first-project-node-with-ts.git",
+  "license": "MIT"
+}
