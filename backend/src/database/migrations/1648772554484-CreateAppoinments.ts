@@ -20,7 +20,7 @@ export default class CreateAppoinments1648769785348 implements MigrationInterfac
             },
             {
               name: "date",
-              type: "typestamp with time zone", //funciona só no postgres
+              type: "timestamp with time zone", //funciona só no postgres
               //Caso fosse fazer em qualquer outro banco de dados
               //Utilizar only typestamp
               isNullable: false,
