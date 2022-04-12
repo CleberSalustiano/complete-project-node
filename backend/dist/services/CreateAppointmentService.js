@@ -10,7 +10,7 @@ class CreateAppointmentsService {
     async execute({ date, provider }) {
         const appointmentsRepository = (0, typeorm_1.getCustomRepository)(AppointmentsRepository_1.default);
         const appointmentDate = (0, date_fns_1.startOfHour)(date);
-        const findAppointmentInSameDate = appointmentsRepository.findByDate(appointmentDate);
+        const findAppointmentInSameDate = await appointmentsRepository.findByDate(appointmentDate);
         if (findAppointmentInSameDate) {
             throw Error("This appointment is already booked");
         }

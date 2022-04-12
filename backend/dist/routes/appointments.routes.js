@@ -9,9 +9,9 @@ const date_fns_1 = require("date-fns");
 const AppointmentsRepository_1 = __importDefault(require("../repositories/AppointmentsRepository"));
 const CreateAppointmentService_1 = __importDefault(require("../services/CreateAppointmentService"));
 const appointmentsRouter = (0, express_1.Router)();
-appointmentsRouter.get('/', (request, response) => {
+appointmentsRouter.get('/', async (request, response) => {
     const appointmentsRepository = (0, typeorm_1.getCustomRepository)(AppointmentsRepository_1.default);
-    const appointments = appointmentsRepository.find();
+    const appointments = await appointmentsRepository.find();
     return response.json(appointments);
 });
 appointmentsRouter.post("/", async (request, response) => {

@@ -25,6 +25,16 @@ export default class CreateAppoinments1648769785348 implements MigrationInterfac
               //Caso fosse fazer em qualquer outro banco de dados
               //Utilizar only typestamp
               isNullable: false,
+            },
+            {
+              name: 'created_at',
+              type: 'timestamp',
+              default: 'now()',
+            },
+            {
+              name: 'update_at',
+              type: 'timestamp',
+              default: 'now()',
             }
           ]
         })
