@@ -24,7 +24,7 @@ usersRouter.post("/", async (request, response) => {
 
     return response.json(user);
   } catch (error) {
-    return response.status(400).json({error: error.message})
+    return response.status(error.statusCode).json({error: error.message})
   }
 })
 
@@ -45,7 +45,7 @@ usersRouter.patch(
 
     return response.json(user)
   }catch (error ){
-    return response.status(400).json({error: error.message})
+    return response.status(error.statusCode).json({error: error.message})
   }
 })
 
