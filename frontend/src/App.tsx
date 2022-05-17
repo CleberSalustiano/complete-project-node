@@ -1,8 +1,13 @@
 // App.tsx
-import React from "react";
+import React from 'react';
 
-function App() {
-  return <h1>Hello World</h1>;
-}
+import GlobalStyled from './styles/global';
+
+const App: React.FC = () => (
+  <>
+    <h1>Hello World</h1>
+    <GlobalStyled />
+  </>
+);
 
 export default App;
