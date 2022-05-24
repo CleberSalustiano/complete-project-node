@@ -11,7 +11,7 @@ import { AuthProvider } from './context/AuthContext';
 const App: React.FC = () => (
   <>
     <AuthProvider>
-      <SignIn />
+      <SignUp />
     </AuthProvider>
 
     <GlobalStyled />
