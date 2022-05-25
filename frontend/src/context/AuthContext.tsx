@@ -1,19 +1,36 @@
-/* eslint-disable no-empty-pattern */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { createContext, ReactNode } from 'react';
+import React, { createContext, ReactNode, useCallback } from 'react';
+
+import api from '../services/api';
+
+interface SignInCredentials {
+  email: string;
+  password: string;
+}
 
 interface AuthContextState {
   name: string;
+  signIn(credentials: SignInCredentials): Promise<void>;
 }
 
 interface BaseLayoutProps {
   children?: ReactNode;
 }
 
-const AuthContext = createContext<AuthContextState>({} as AuthContextState);
-
-export const AuthProvider: React.FC<BaseLayoutProps> = ({ children }) => (
-  <AuthContext.Provider value={{ name: 'Cleber' }}>
-    {children}
-  </AuthContext.Provider>
+export const AuthContext = createContext<AuthContextState>(
+  {} as AuthContextState,
 );
+
+export const AuthProvider: React.FC<BaseLayoutProps> = ({ children }) => {
+  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
+    const response = await api.post('sessions', { email, password });
+
+    console.log(response.data);
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ name: 'Cleber', signIn }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
