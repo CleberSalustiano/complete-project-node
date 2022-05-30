@@ -1,5 +1,11 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { createContext, ReactNode, useCallback, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useState,
+  useContext,
+} from 'react';
 
 import api from '../services/api';
 
@@ -11,22 +17,21 @@ interface SignInCredentials {
 interface AuthContextState {
   user: object;
   signIn(credentials: SignInCredentials): Promise<void>;
+  signOut(): void;
 }
 
 interface BaseLayoutProps {
   children?: ReactNode;
 }
 
-export const AuthContext = createContext<AuthContextState>(
-  {} as AuthContextState,
-);
+const AuthContext = createContext<AuthContextState>({} as AuthContextState);
 
 interface AuthState {
   token: string;
   user: object;
 }
 
-export const AuthProvider: React.FC<BaseLayoutProps> = ({ children }) => {
+const AuthProvider: React.FC<BaseLayoutProps> = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@GoBarber:token');
     const user = localStorage.getItem('@GoBarber:user');
@@ -49,9 +54,28 @@ export const AuthProvider: React.FC<BaseLayoutProps> = ({ children }) => {
     setData({ token, user });
   }, []);
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@GoBarber:token');
+    localStorage.removeItem('@GoBarber:user');
+
+    setData({} as AuthState);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+function useAuth(): AuthContextState {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error('useAth must be used within an AuthProvider');
+  }
+
+  return context;
+}
+
+export { AuthProvider, useAuth };
