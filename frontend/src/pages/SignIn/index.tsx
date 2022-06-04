@@ -4,7 +4,7 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 
 import * as Yup from 'yup';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/AuthContext';
 import { useToast } from '../../hooks/ToastContext';
@@ -28,6 +28,7 @@ const SignIn: React.FC = () => {
 
   const { signIn, user } = useAuth();
   const { addToast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -47,6 +48,7 @@ const SignIn: React.FC = () => {
           email: data.email,
           password: data.password,
         });
+        navigate('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err as Yup.ValidationError);
